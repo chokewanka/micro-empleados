@@ -13,7 +13,9 @@ public interface EmpleadoService {
 	
 	public Empleado findById(Long id);
 	
-	public Empleado save(Empleado empleado);
+	public Long create(Empleado empleado);
+	
+	public void edit(Long id, Empleado empleado);
 	
 	public void delete(Long id);
 	

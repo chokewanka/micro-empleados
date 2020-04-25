@@ -4,6 +4,7 @@ public class ModelConstants {
 
 	public static final String EMPLEADO_NOMBRE = "nombre";
 	public static final String EMPLEADO_CODIGO = "codigo";
+	public static final String EMPLEADO_FECHA_INGRESO = "fechaIngreso";
 	public static final String EMPLEADO_FECHA_INICIO = "fechaInicio";
 	public static final String EMPLEADO_FECHA_FIN = "fechaFin";
 	public static final String EMPLEADO_LOCAL = "idLocal";

@@ -41,11 +41,11 @@ public class EmpleadoRepositoryCustomImpl implements EmpleadoRepositoryCustom {
 		}
 		
 		if(filter.getFechaInicio() != null) {
-			predicates.add(cb.greaterThanOrEqualTo(empleado.get(ModelConstants.EMPLEADO_FECHA_INICIO), filter.getFechaInicio()));
+			predicates.add(cb.greaterThanOrEqualTo(empleado.get(ModelConstants.EMPLEADO_FECHA_INGRESO), filter.getFechaInicio()));
 		}
 		
 		if(filter.getFechaFin() != null) {
-			predicates.add(cb.lessThanOrEqualTo(empleado.get(ModelConstants.EMPLEADO_FECHA_FIN), filter.getFechaFin()));
+			predicates.add(cb.lessThanOrEqualTo(empleado.get(ModelConstants.EMPLEADO_FECHA_INGRESO), filter.getFechaFin()));
 		}
 		
 		if(filter.getIdLocal() != null && filter.getIdLocal()>UtilConstants.EMPTY_ID) {

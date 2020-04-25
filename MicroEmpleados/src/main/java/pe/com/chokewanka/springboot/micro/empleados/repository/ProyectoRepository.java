@@ -9,6 +9,6 @@ import pe.com.chokewanka.springboot.micro.empleados.repository.custom.ProyectoRe
 
 public interface ProyectoRepository extends CrudRepository<Proyecto, Long>, ProyectoRepositoryCustom {
 
-	public List<Proyecto> findByIdLocal( Long idLocal );
+    public List<Proyecto> findByIdLocal( Long idLocal );
 	
 }

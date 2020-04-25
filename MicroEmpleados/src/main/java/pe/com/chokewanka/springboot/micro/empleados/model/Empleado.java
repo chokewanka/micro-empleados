@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +19,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "empleado")
@@ -45,7 +48,7 @@ public class Empleado implements Serializable {
 	@Column(name = "local_id")
 	private Long idLocal;
 	
-	@OneToMany(mappedBy="empleado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="empleado", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Conocimiento> conocimientos = new ArrayList<Conocimiento>();
 
 	@Column(name = "salario")
@@ -59,6 +62,10 @@ public class Empleado implements Serializable {
 
 	@Column(name = "email")
 	private String email;
+	
+	@OneToMany(mappedBy = "key.empleado", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private List<EmpleadoProyecto> empleadosProyecto = new ArrayList<EmpleadoProyecto>();
 
 	@Column(name = "is_deleted")
 	private Integer isDeleted;
@@ -118,7 +125,10 @@ public class Empleado implements Serializable {
 	}
 
 	public void setConocimientos(List<Conocimiento> conocimientos) {
-		this.conocimientos = conocimientos;
+		this.conocimientos.clear();
+	    if (conocimientos != null) {
+	        this.conocimientos.addAll(conocimientos);
+	    }
 	}
 
 	public Double getSalario() {
@@ -152,6 +162,14 @@ public class Empleado implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<EmpleadoProyecto> getEmpleadosProyecto() {
+		return this.empleadosProyecto;
+	}
+
+	public void setEmpleadosProyecto(List<EmpleadoProyecto> empleadosProyecto) {
+		this.empleadosProyecto = empleadosProyecto;
+	}
 
 	public Integer getIsDeleted() {
 		return isDeleted;
@@ -159,6 +177,24 @@ public class Empleado implements Serializable {
 
 	public void setIsDeleted(Integer isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		Empleado that = (Empleado) o;
+
+		if (this.getId() != null ? !this.getId().equals(that.getId()) : that.getId() != null)
+			return false;
+
+		return true;
+	}
+
+	public int hashCode() {
+		return (this.getId() != null ? this.getId().hashCode() : 0);
 	}
 
 	@Override

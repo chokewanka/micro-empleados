@@ -37,11 +37,11 @@ public class ProyectoRepositoryCustomImpl implements ProyectoRepositoryCustom {
 		}
 		
 		if(filter.getFechaInicio() != null) {
-			predicates.add(cb.greaterThanOrEqualTo(proyecto.get(ModelConstants.PROYECTO_FECHA_INICIO), filter.getFechaInicio()));
+			predicates.add(cb.greaterThanOrEqualTo(proyecto.get(ModelConstants.PROYECTO_FECHA_FIN), filter.getFechaInicio()));
 		}
 		
 		if(filter.getFechaFin() != null) {
-			predicates.add(cb.lessThanOrEqualTo(proyecto.get(ModelConstants.PROYECTO_FECHA_FIN), filter.getFechaFin()));
+			predicates.add(cb.lessThanOrEqualTo(proyecto.get(ModelConstants.PROYECTO_FECHA_INICIO), filter.getFechaFin()));
 		}
 		
 		if(filter.getIdLocal() != null && filter.getIdLocal()>UtilConstants.EMPTY_ID) {

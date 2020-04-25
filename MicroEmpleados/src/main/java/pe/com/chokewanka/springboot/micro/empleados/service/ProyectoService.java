@@ -13,7 +13,9 @@ public interface ProyectoService {
 	
 	public Proyecto findById(Long id);
 	
-	public Proyecto save(Proyecto proyecto);
+	public Long create(Proyecto proyecto);
+	
+	public void edit(Long id, Proyecto proyecto);
 	
 	public void delete(Long id);
 	

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +50,7 @@ public class Proyecto implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fechaFin;
 	
-	@OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "key.proyecto", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EmpleadoProyecto> empleadosProyecto = new ArrayList<EmpleadoProyecto>();
 	
 	@Column(name="is_deleted")
@@ -114,11 +115,14 @@ public class Proyecto implements Serializable {
 	}
 
 	public List<EmpleadoProyecto> getEmpleadosProyecto() {
-		return empleadosProyecto;
+		return this.empleadosProyecto;
 	}
 
 	public void setEmpleadosProyecto(List<EmpleadoProyecto> empleadosProyecto) {
-		this.empleadosProyecto = empleadosProyecto;
+		this.empleadosProyecto.clear();
+	    if (empleadosProyecto != null) {
+	        this.empleadosProyecto.addAll(empleadosProyecto);
+	    }
 	}
 
 	public Integer getIsDeleted() {
@@ -127,6 +131,24 @@ public class Proyecto implements Serializable {
 
 	public void setIsDeleted(Integer isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		Proyecto that = (Proyecto) o;
+
+		if (this.getId() != null ? !this.getId().equals(that.getId()) : that.getId() != null)
+			return false;
+
+		return true;
+	}
+
+	public int hashCode() {
+		return (this.getId() != null ? this.getId().hashCode() : 0);
 	}
 
 	@Override

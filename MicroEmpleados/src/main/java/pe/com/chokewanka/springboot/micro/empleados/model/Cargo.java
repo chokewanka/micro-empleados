@@ -39,6 +39,24 @@ public class Cargo implements Serializable {
 		this.nombre = nombre;
 	}
 	
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		Cargo that = (Cargo) o;
+
+		if (this.getId() != null ? !this.getId().equals(that.getId()) : that.getId() != null)
+			return false;
+
+		return true;
+	}
+
+	public int hashCode() {
+		return (this.getId() != null ? this.getId().hashCode() : 0);
+	}
+	
 	@Override
 	public String toString() {
 		return "Cargo [id=" + id + ", nombre=" + nombre + "]";
